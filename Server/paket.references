@@ -1,3 +1,5 @@
 FSharp.Core
 Giraffe
 Fable.Remoting.Giraffe
+Elmish.Bridge.Giraffe
+Fable.Elmish.Browser

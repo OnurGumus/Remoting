@@ -1,0 +1,36 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        
+      
+        {
+            "name": "Launch Web",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "${workspaceFolder}/Server/bin/Debug/net7.0/Server.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopAtEntry": false,
+            "justMyCode": true,
+            "preLaunchTask": "Build Server"
+            // "symbolOptions": {
+            //     "searchMicrosoftSymbolServer": true,
+            //     "searchNuGetOrgSymbolServer": true
+            // },
+            // "suppressJITOptimizations": true,
+            // "env": {
+            //     "COMPlus_ZapDisable": "1",
+            //     "COMPlus_ReadyToRun": "0"
+            // }
+        },
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "launch"
+        }
+    ]
+}

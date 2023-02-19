@@ -13,3 +13,5 @@ nuget Fable.Aether
 nuget Newtonsoft.Json
 nuget Fable.Remoting.Giraffe
 nuget Elmish
+nuget Elmish.Bridge.Giraffe
+nuget Fable.Elmish.Browser

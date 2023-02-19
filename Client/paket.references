@@ -3,3 +3,4 @@ Fable.Lit.Elmish
 Fable.Remoting.Client
 Elmish.Bridge.Client
 Elmish
+Fable.Elmish.Browser
