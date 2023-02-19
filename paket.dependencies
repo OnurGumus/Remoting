@@ -1,0 +1,15 @@
+source https://api.nuget.org/v3/index.json
+
+storage: none
+framework: auto-detect
+nuget FSharp.Core content: none
+nuget Giraffe
+nuget Microsoft.AspNetCore.SpaServices.Extensions
+nuget Fable.Lit.Elmish
+nuget Fable.Remoting.Client
+nuget Elmish.Bridge.Client
+nuget Fable.Validation
+nuget Fable.Aether
+nuget Newtonsoft.Json
+nuget Fable.Remoting.Giraffe
+nuget Elmish
