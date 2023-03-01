@@ -16,7 +16,7 @@ From the project root, open a terminal then
 dotnet run --project Server/
 ```
 
-The another terminal
+Then another terminal
 
 ```
 cd Client
