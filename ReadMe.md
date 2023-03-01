@@ -22,3 +22,8 @@ Then another terminal
 cd Client
 npm start
 ```
+
+Finally visit
+```
+http://localhost:5173/dist/
+```
