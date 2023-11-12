@@ -2,16 +2,16 @@
   "version": 1,
   "isRoot": true,
   "tools": {
-    "fable": {
-      "version": "4.0.0-theta-018",
-      "commands": [
-        "fable"
-      ]
-    },
     "paket": {
-      "version": "7.2.0",
+      "version": "8.0.0-alpha002",
       "commands": [
         "paket"
+      ]
+    },
+    "fable": {
+      "version": "4.5.0",
+      "commands": [
+        "fable"
       ]
     }
   }
