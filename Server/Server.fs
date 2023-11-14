@@ -24,12 +24,12 @@ module Counter  =
     type Model = { Count: int ; Token: CancellationTokenSource option}
     type Msg = Start | Stop | Tick | Remote of ClientToServer.CounterMsg
 
-    let cmd  (token:CancellationToken)= Cmd.ofEffect(fun dispatch ->
+    let cmd (token:CancellationToken)= Cmd.ofEffect(fun dispatch ->
         Async.StartImmediate(
          async {
             while not token.IsCancellationRequested do
                 do! Async.Sleep 1000
-                dispatch Tick
+                failwith "what message"
         }, token ))
 
             
@@ -44,11 +44,12 @@ module Counter  =
             { model with Token = Some tokenSource  }, cmd token
         | Stop -> 
             match model.Token with
-            | Some tokenSource -> tokenSource.Cancel(); tokenSource.Dispose(); { model with Token = None }, Cmd.none
+            | Some tokenSource -> failwith "stop timer"; tokenSource.Dispose(); { model with Token = None }, Cmd.none
             | None -> model, Cmd.none
         | Tick -> 
             clientDispatch (ServerToClient.CounterValue model.Count)
             { model with Count = model.Count + 1 }, Cmd.none
+
 
 type ServerMsg =
     | Remote of ClientToServer.Msg
@@ -62,11 +63,11 @@ let init (clientDispatch:Dispatch<ServerToClient.Msg>) () =
 
 let update (clientDispatch:Dispatch<ServerToClient.Msg>) (msg:ServerMsg) model =
     //hub.SendClientIf (fun x -> x < 3) ServerToClient.ServerConnected
-    let clientDispatchC i =  (fun m -> ServerToClient.CounterMessage(m,i)) >> clientDispatch
+    let clientDispatchC i =  (fun m -> ServerToClient.CounterMessage(m,i)) >> failwith "what here"
     match msg with
     | Remote ClientToServer.AddCounter ->
         let counterNumber = model.CounterNumber + 1
-        let counter, counterCmd = Counter.init ()
+        let counter, counterCmd = failwith "init counter" //Counter.init ()
         let counters = model.Counters @ [counter]
         { model with Counters = counters; CounterNumber = counterNumber }, 
             Cmd.batch [ 
@@ -106,7 +107,6 @@ let reverseHandler: HttpHandler =
 let webApp  =
     choose [
         server
-
         reverseHandler
     ]
 
@@ -119,9 +119,7 @@ let configureServices (services: IServiceCollection) =
 let configureApp (app: IApplicationBuilder) =
     app
         .UseWebSockets() 
-
-     .UseRouting().UseCors()
-     
+        .UseRouting().UseCors()
         .UseGiraffe(webApp)|> ignore
    
    

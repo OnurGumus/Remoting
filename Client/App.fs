@@ -39,16 +39,16 @@ let init () = { Value = NonEmptyString "test"; Counters = []; CounterNumber = 0;
 
 let update (bridgSend: ClientToServer.Msg ->unit) msg model = 
     match msg with 
-    | ReverseClicked string -> { model with Value = NonEmptyString string}, Cmd.batch [runCmd  (NonEmptyString string)]
+    | ReverseClicked string -> { model with Value = NonEmptyString string}, (runCmd  (NonEmptyString string))
     | ReverseResult result -> { model with Value = result }, Cmd.none
-    | AddCounter -> { model with CounterNumber = model.CounterNumber + 1 }, Cmd.ofEffect (fun _ -> bridgSend ClientToServer.Msg.AddCounter)
+    | AddCounter -> { model with CounterNumber = model.CounterNumber + 1 }, Cmd.ofEffect (fun _ -> bridgSend (failwith "what message tosend)"))
     | Remote (ServerToClient.Msg.CounterAdded i) -> 
-        let counter, counterCmd = Counter.init ()
+        let counter, counterCmd = failwith "init sub counter"
         { model with Counters = model.Counters @ [counter] }, Cmd.map (fun msg -> CounterMsg (msg, i)) counterCmd
     | Remote ServerToClient.Msg.ServerConnected  -> 
-       { model with ServerConnected = true}, Cmd.none
+       { model with ServerConnected = failwith "what here"}, Cmd.none
     | CounterMsg (msg, i) ->
-        let bridgeSend = (fun m -> ClientToServer.CounterMessage(m,i)) >> bridgSend
+        let bridgeSend = (fun m -> ClientToServer.CounterMessage(m,i)) >> failwith "what here"
         let counter, counterCmd = Counter.update bridgeSend msg model.Counters.[i-1]
         let counters = model.Counters |> List.mapi (fun j c -> if (j + 1) = i then counter else c)
         { model with Counters = counters }, Cmd.map (fun msg -> CounterMsg (msg, i)) counterCmd
